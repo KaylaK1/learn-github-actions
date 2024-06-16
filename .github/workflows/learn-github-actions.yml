@@ -1,15 +1,25 @@
 # Workflow Name - can ommit - uses filename
 name: learn-github-actions
-# 
+# optional
 run-name: ${{ github.actor }} is learning Github Actions
+# trigger
 on: [push]
 jobs:
+    # user defined job name
     check-bats-version:
+        # fresh vm run by github
         runs-on: ubuntu-latest
+        # List of Node versions to test
+        strategy:
+            matrix:
+                node-version: [18x, 20x]
+        # Groups the steps for job, each item is a seperate action or script
         steps:
+            # checks out repository onto the runner
             - uses: actions/checkout@v4
+            # installs node, puts both node and npm commands into your path
             - uses: actions/setup-node@v4
               with:
-                node-version: '20'
+                node-version: ${{matrix.node-version}}
             - run: npm install -g bats
             - run: bats -v

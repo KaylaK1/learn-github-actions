@@ -12,7 +12,7 @@ jobs:
         # List of Node versions to test
         strategy:
             matrix:
-                node-version: [18x, 20x]
+                node-version: [18, 20]
         # Groups the steps for job, each item is a seperate action or script
         steps:
             # checks out repository onto the runner
